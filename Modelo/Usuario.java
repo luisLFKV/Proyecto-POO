@@ -1,8 +1,8 @@
 package Modelo;
 
 public class Usuario {
-    private String nombre;
     private int id;
+    private String nombre;
     private String rol;
     private String turno;
 
