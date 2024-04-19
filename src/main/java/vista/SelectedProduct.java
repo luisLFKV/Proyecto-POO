@@ -1,3 +1,5 @@
+package main.java.vista;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -7,12 +9,12 @@
  *
  * @author kumul
  */
-public class selectedProduct extends javax.swing.JPanel {
+public class SelectedProduct extends javax.swing.JPanel {
 
     /**
      * Creates new form selectedProduct
      */
-    public selectedProduct() {
+    public SelectedProduct() {
         initComponents();
     }
 

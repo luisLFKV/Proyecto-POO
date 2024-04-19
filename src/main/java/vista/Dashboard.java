@@ -1,3 +1,4 @@
+package main.java.vista;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -22,7 +23,8 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
 
-        sellPanel venta = new sellPanel();
+        /*menuTxt.setText("Facturar");
+        SellPanel venta = new SellPanel();
         venta.setSize(1300, 674);
         venta.setLocation(0, 0);
 
@@ -31,6 +33,7 @@ public class Dashboard extends javax.swing.JFrame {
         content.add(venta, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
+        */
     }
 
     /**
@@ -60,9 +63,6 @@ public class Dashboard extends javax.swing.JFrame {
 
         customBtn.setBackground(new java.awt.Color(133, 146, 173));
         customBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                customBtnMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 customBtnMouseEntered(evt);
             }
@@ -89,9 +89,6 @@ public class Dashboard extends javax.swing.JFrame {
 
         customBtn2.setBackground(new java.awt.Color(133, 146, 173));
         customBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                customBtn2MouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 customBtn2MouseEntered(evt);
             }
@@ -166,16 +163,15 @@ public class Dashboard extends javax.swing.JFrame {
         userPanelLayout.setHorizontalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(userImg, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(userImg, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
         );
         userPanelLayout.setVerticalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(userImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(userImg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         menuBtn.setBackground(new java.awt.Color(0, 177, 157));
@@ -236,7 +232,7 @@ public class Dashboard extends javax.swing.JFrame {
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1369, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +250,7 @@ public class Dashboard extends javax.swing.JFrame {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(tittleBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -270,6 +266,7 @@ public class Dashboard extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBtnMouseEntered
@@ -315,31 +312,6 @@ public class Dashboard extends javax.swing.JFrame {
         customBtn3.setBackground(new Color(133,146,173));
     }//GEN-LAST:event_customBtn3MouseExited
 
-    private void customBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customBtnMouseClicked
-        sellPanel venta = new sellPanel();
-        venta.setSize(1300, 674);
-        venta.setLocation(0, 0);
-
-        content.removeAll();
-        content.setLayout(new BorderLayout());
-        content.add(venta, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
-    }//GEN-LAST:event_customBtnMouseClicked
-
-    private void customBtn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customBtn2MouseClicked
-        Inventario inventario = new Inventario();
-        System.out.println("Hola");
-        inventario.setSize(1300, 674);
-        inventario.setLocation(0,0);
-
-        content.removeAll();
-        content.setLayout(new BorderLayout());
-        content.add(inventario, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
-    }//GEN-LAST:event_customBtn2MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -377,7 +349,7 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
-    private javax.swing.JPanel content;
+    public javax.swing.JPanel content;
     private javax.swing.JPanel customBtn;
     private javax.swing.JPanel customBtn2;
     private javax.swing.JPanel customBtn3;
@@ -386,10 +358,10 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel customBtnTxt2;
     private javax.swing.JPanel menuBtn;
     private javax.swing.JLabel menuImg;
-    private javax.swing.JLabel menuTxt;
+    public javax.swing.JLabel menuTxt;
     private javax.swing.JPanel tittleBar;
-    private javax.swing.JLabel userImg;
-    private javax.swing.JLabel userName;
+    public javax.swing.JLabel userImg;
+    public javax.swing.JLabel userName;
     private javax.swing.JPanel userPanel;
     // End of variables declaration//GEN-END:variables
 }
