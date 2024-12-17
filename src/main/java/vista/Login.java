@@ -1,6 +1,7 @@
 package main.java.vista;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -128,6 +129,8 @@ public class Login extends javax.swing.JFrame {
         loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("Ingresar");
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginButton.setMnemonic(KeyEvent.VK_ENTER);
+        getRootPane().setDefaultButton(loginButton);
 
         logoImg.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         logoImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

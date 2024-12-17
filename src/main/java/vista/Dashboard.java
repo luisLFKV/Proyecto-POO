@@ -6,34 +6,31 @@ package main.java.vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
+
+import main.java.aplicacion.Aplicacion;
+import main.java.controlador.DashboardController;
+import main.java.modelo.Usuario;
 
 /**
  *
  * @author kumul
  */
 public class Dashboard extends javax.swing.JFrame {
-
+    private Usuario usuario;
+    private DashboardController controller;
     /**
      * Creates new form Dashboard
      */
-    public Dashboard() {
+    public Dashboard(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
-
-        /*menuTxt.setText("Facturar");
-        SellPanel venta = new SellPanel();
-        venta.setSize(1300, 674);
-        venta.setLocation(0, 0);
-
-        content.removeAll();
-        content.setLayout(new BorderLayout());
-        content.add(venta, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
-        */
+        replacePlaceholder();
     }
 
     /**
@@ -63,6 +60,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         customBtn.setBackground(new java.awt.Color(133, 146, 173));
         customBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customBtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 customBtnMouseEntered(evt);
             }
@@ -89,6 +89,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         customBtn2.setBackground(new java.awt.Color(133, 146, 173));
         customBtn2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customBtn2MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 customBtn2MouseEntered(evt);
             }
@@ -115,6 +118,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         customBtn3.setBackground(new java.awt.Color(133, 146, 173));
         customBtn3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customBtn3MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 customBtn3MouseEntered(evt);
             }
@@ -189,7 +195,6 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         menuImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        menuImg.setText("X");
 
         javax.swing.GroupLayout menuBtnLayout = new javax.swing.GroupLayout(menuBtn);
         menuBtn.setLayout(menuBtnLayout);
@@ -283,7 +288,9 @@ public class Dashboard extends javax.swing.JFrame {
         // Agregamos elementos al menú desplegable
         popupMenu.add(customBtn);
         popupMenu.add(customBtn2);
-        popupMenu.add(customBtn3);
+        if (usuario.getPrivilegio() == 0) {
+            popupMenu.add(customBtn3);
+        }
         // Mostramos el menú desplegable en la posición del botón
         popupMenu.show(menuBtn, 0, menuBtn.getHeight());
     }//GEN-LAST:event_menuBtnMouseClicked
@@ -312,10 +319,44 @@ public class Dashboard extends javax.swing.JFrame {
         customBtn3.setBackground(new Color(133,146,173));
     }//GEN-LAST:event_customBtn3MouseExited
 
+    private void customBtnMouseClicked(java.awt.event.MouseEvent evt) {
+        controller.showContent("Facturar", new SellPanel());
+    }
+
+    private void customBtn2MouseClicked(java.awt.event.MouseEvent evt) {
+        controller.showContent("Facturar", new Inventario());
+    }
+
+    private void customBtn3MouseClicked(java.awt.event.MouseEvent evt) {
+        controller.showContent("Usuarios", new PanelUsuarios());
+    }
+
+    public void setTxtMenuTxt(String txt){
+        this.menuTxt.setText(txt);
+    }
+
+    public void setController(DashboardController controller) {
+        this.controller = controller;
+    }
+    
+    private void replacePlaceholder(){
+        //TODO hacer que tome la imagen del user
+        ImageIcon icon = new ImageIcon("src/resources/images/defaultProfileImg.jpg");
+        Image image = icon.getImage().getScaledInstance(userImg.getWidth(), userImg.getHeight(), Image.SCALE_SMOOTH);
+        userImg.setText("");
+        userImg.setIcon(new ImageIcon(image));
+        menuImg.setIcon(new ImageIcon("src/resources/images/menu.png"));
+        userName.setText(Aplicacion.usuario.getNombres()+" "+Aplicacion.usuario.getApellidoP());
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        Usuario usuario = new Usuario();
+        usuario.setNombre("Si");
+        usuario.setPrivilegio(1);
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -342,7 +383,7 @@ public class Dashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+                new Dashboard(usuario).setVisible(true);
             }
         });
     }
@@ -358,10 +399,10 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel customBtnTxt2;
     private javax.swing.JPanel menuBtn;
     private javax.swing.JLabel menuImg;
-    public javax.swing.JLabel menuTxt;
+    private javax.swing.JLabel menuTxt;
     private javax.swing.JPanel tittleBar;
-    public javax.swing.JLabel userImg;
-    public javax.swing.JLabel userName;
+    private javax.swing.JLabel userImg;
+    private javax.swing.JLabel userName;
     private javax.swing.JPanel userPanel;
     // End of variables declaration//GEN-END:variables
 }

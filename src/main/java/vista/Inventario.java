@@ -1,5 +1,19 @@
 package main.java.vista;
 
+import java.awt.Component;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import main.java.aplicacion.Aplicacion;
+import main.java.modelo.RWUsers;
+import main.java.modelo.TbInventario;
+import main.java.vista.cell.TableActionCellEditor;
+import main.java.vista.cell.TableActionCellRender;
+import main.java.vista.cell.TableActionEvent;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -16,6 +30,44 @@ public class Inventario extends javax.swing.JPanel {
      */
     public Inventario() {
         initComponents();
+        TbInventario.inicializarTabla(tableProducts);
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                System.out.println("Edit row : " + row);
+                addProduct addProduct = new addProduct(row);
+                addProduct.setVisible(true);
+            }
+
+            @Override
+            public void onDelete(int row) {
+                if (tableProducts.isEditing()) {
+                    tableProducts.getCellEditor().stopCellEditing();
+                }
+                int option = JOptionPane.showConfirmDialog(tableProducts, "¿Estás seguro de eliminar este producto?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    Aplicacion.listaProductos.remove(row);
+                    DefaultTableModel model = (DefaultTableModel) tableProducts.getModel();
+                    model.removeRow(row);
+                    RWUsers.escribirDatos(Aplicacion.listaUsuarios);
+                }
+
+            }
+
+            @Override
+            public void onView(int row) {
+                JOptionPane.showMessageDialog(tableProducts, Aplicacion.listaProductos.get(row), "Información del producto", JOptionPane.INFORMATION_MESSAGE);
+            }
+        };
+        tableProducts.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
+        tableProducts.getColumnModel().getColumn(5).setCellEditor(new TableActionCellEditor(event));
+        tableProducts.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                setHorizontalAlignment(SwingConstants.RIGHT);
+                return super.getTableCellRendererComponent(jtable, o, bln, bln1, i, i1);
+            }
+        });
     }
 
     /**
@@ -53,14 +105,15 @@ public class Inventario extends javax.swing.JPanel {
                 "Nombre", "Id", "Precio unitario", "Descripción", "Cantidad", "Acciones"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        tableProducts.setRowHeight(40);
         scrollTableProducts.setViewportView(tableProducts);
 
         jSeparator1.setForeground(new java.awt.Color(244, 245, 251));
@@ -121,7 +174,9 @@ public class Inventario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProductBtnActionPerformed
-        // TODO add your handling code here:
+        addProduct addProduct = new addProduct();
+        addProduct.setVisible(true);
+        TbInventario.inicializarTabla(tableProducts);
     }//GEN-LAST:event_newProductBtnActionPerformed
 
 

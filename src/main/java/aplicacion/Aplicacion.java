@@ -1,24 +1,32 @@
 package main.java.aplicacion;
 
+import java.util.ArrayList;
 import main.java.controlador.DashboardController;
+import main.java.controlador.LoginController;
 import main.java.controlador.LoginListener;
-import main.java.modelo.LoginController;
+import main.java.modelo.Producto;
+import main.java.modelo.RWProductos;
+import main.java.modelo.RWTienda;
+import main.java.modelo.RWUsers;
+import main.java.modelo.Tienda;
 import main.java.modelo.Usuario;
 import main.java.vista.Dashboard;
 import main.java.vista.Login;
 
 public class Aplicacion {
-    private Usuario usuario;
+    public static ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+    public static ArrayList<Producto> listaProductos = new ArrayList<>();
+    public static Usuario usuario;
+    public static Tienda tienda;
     public static void main(String[] args) {
+        listaProductos = RWProductos.leerDatos();
+        listaUsuarios = RWUsers.leerDatos();
+        tienda = RWTienda.leerDatos();
         
-        // Crear una instancia del controlador y pasarle la vista
-        LoginController controller = new LoginController(new Login(), new LoginListener() {
+        LoginController controller = new LoginController(listaUsuarios, new Login(), new LoginListener() {
             @Override
             public void onLoginSuccess() {
-                // Acciones a realizar después de un inicio de sesión exitoso
-                System.out.println("Inicio de sesión exitoso. Ejecutando otras acciones...");
-                // Aquí puedes llamar a métodos o iniciar acciones adicionales
-                DashboardController dashBoard = new DashboardController(new Dashboard());
+                DashboardController dashboard = new DashboardController(new Dashboard(usuario), usuario);
                 /*
                 Dashboard dashboard = new Dashboard();
                 dashboard.setVisible(true);
@@ -27,9 +35,7 @@ public class Aplicacion {
 
             @Override
             public void onLoginFailure() {
-                // Acciones a realizar después de un inicio de sesión fallido
-                System.out.println("Inicio de sesión fallido. No se pueden ejecutar otras acciones.");
-                // Aquí puedes manejar el inicio de sesión fallido
+                
             }
         });
         // Mostrar la interfaz de usuario

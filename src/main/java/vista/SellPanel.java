@@ -7,17 +7,29 @@ package main.java.vista;
 
 import java.awt.Color;
 
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import main.java.aplicacion.Aplicacion;
+import main.java.controlador.SellPanelController;
+import main.java.modelo.RWUsers;
+
 /**
  *
  * @author kumul
  */
 public class SellPanel extends javax.swing.JPanel {
+    private SellPanelController controller;
 
     /**
      * Creates new form sellPanel
      */
     public SellPanel() {
         initComponents();
+        controller = new SellPanelController(this, Aplicacion.listaProductos);
+        replacePlaceholder();
     }
 
     /**
@@ -32,9 +44,8 @@ public class SellPanel extends javax.swing.JPanel {
         productsPanel = new javax.swing.JPanel();
         searchBar = new javax.swing.JPanel();
         searchProducts = new javax.swing.JPanel();
-        searchField = new javax.swing.JTextField();
-        menuProductsBtn = new javax.swing.JPanel();
-        searchBtn = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        productsGrid = new javax.swing.JPanel();
         ticketPanel = new javax.swing.JPanel();
         ticketBanner = new javax.swing.JPanel();
         ticketBannerTxt1 = new javax.swing.JLabel();
@@ -64,88 +75,15 @@ public class SellPanel extends javax.swing.JPanel {
         searchProducts.setBackground(new java.awt.Color(255, 255, 255));
         searchProducts.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(154, 221, 217), 3, true));
 
-        searchField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        searchField.setForeground(java.awt.Color.lightGray);
-        searchField.setText("Buscar productos");
-        searchField.setBorder(null);
-        searchField.setMargin(new java.awt.Insets(2, 60, 2, 6));
-        searchField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                searchFieldMousePressed(evt);
-            }
-        });
-        searchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchFieldActionPerformed(evt);
-            }
-        });
-
-        menuProductsBtn.setBackground(new java.awt.Color(0, 177, 157));
-        menuProductsBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuProductsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                menuProductsBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                menuProductsBtnMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout menuProductsBtnLayout = new javax.swing.GroupLayout(menuProductsBtn);
-        menuProductsBtn.setLayout(menuProductsBtnLayout);
-        menuProductsBtnLayout.setHorizontalGroup(
-            menuProductsBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 47, Short.MAX_VALUE)
-        );
-        menuProductsBtnLayout.setVerticalGroup(
-            menuProductsBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        searchBtn.setBackground(new java.awt.Color(0, 83, 94));
-        searchBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        searchBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchBtnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                searchBtnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                searchBtnMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout searchBtnLayout = new javax.swing.GroupLayout(searchBtn);
-        searchBtn.setLayout(searchBtnLayout);
-        searchBtnLayout.setHorizontalGroup(
-            searchBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-        searchBtnLayout.setVerticalGroup(
-            searchBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout searchProductsLayout = new javax.swing.GroupLayout(searchProducts);
         searchProducts.setLayout(searchProductsLayout);
         searchProductsLayout.setHorizontalGroup(
             searchProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchProductsLayout.createSequentialGroup()
-                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(menuProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 826, Short.MAX_VALUE)
         );
         searchProductsLayout.setVerticalGroup(
             searchProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(searchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(searchProductsLayout.createSequentialGroup()
-                .addGroup(searchProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(menuProductsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout searchBarLayout = new javax.swing.GroupLayout(searchBar);
@@ -154,8 +92,8 @@ public class SellPanel extends javax.swing.JPanel {
             searchBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchBarLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(searchProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(53, 53, 53))
+                .addComponent(searchProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchBarLayout.setVerticalGroup(
             searchBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,17 +103,37 @@ public class SellPanel extends javax.swing.JPanel {
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
+        productsGrid.setBackground(new java.awt.Color(244, 245, 251));
+
+        javax.swing.GroupLayout productsGridLayout = new javax.swing.GroupLayout(productsGrid);
+        productsGrid.setLayout(productsGridLayout);
+        productsGridLayout.setHorizontalGroup(
+            productsGridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 812, Short.MAX_VALUE)
+        );
+        productsGridLayout.setVerticalGroup(
+            productsGridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 598, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(productsGrid);
+
         javax.swing.GroupLayout productsPanelLayout = new javax.swing.GroupLayout(productsPanel);
         productsPanel.setLayout(productsPanelLayout);
         productsPanelLayout.setHorizontalGroup(
             productsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(searchBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(productsPanelLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jScrollPane1)
+                .addGap(54, 54, 54))
         );
         productsPanelLayout.setVerticalGroup(
             productsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(productsPanelLayout.createSequentialGroup()
                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(612, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1))
         );
 
         ticketPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -202,6 +160,9 @@ public class SellPanel extends javax.swing.JPanel {
         newClientBtn.setBackground(new java.awt.Color(255, 255, 255));
         newClientBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         newClientBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                newClientBtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 newClientBtnMouseEntered(evt);
             }
@@ -250,6 +211,9 @@ public class SellPanel extends javax.swing.JPanel {
         sellBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
         sellBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sellBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sellBtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 sellBtnMouseEntered(evt);
             }
@@ -297,6 +261,9 @@ public class SellPanel extends javax.swing.JPanel {
 
         cancelBtn.setBackground(new java.awt.Color(133, 146, 173));
         cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelBtnMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cancelBtnMouseEntered(evt);
             }
@@ -363,11 +330,6 @@ public class SellPanel extends javax.swing.JPanel {
                 .addComponent(productsBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         selectedProductsList.setViewportView(jList1);
 
         javax.swing.GroupLayout ticketPanelLayout = new javax.swing.GroupLayout(ticketPanel);
@@ -431,41 +393,6 @@ public class SellPanel extends javax.swing.JPanel {
         sellBtn.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
     }//GEN-LAST:event_sellBtnMouseExited
 
-    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
-        String textoIngresado = searchField.getText();
-        System.out.println("Texto ingresado: " + textoIngresado);
-        searchField.setForeground(Color.gray);
-        searchField.setText("Buscar productos");
-    }//GEN-LAST:event_searchFieldActionPerformed
-
-    private void menuProductsBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuProductsBtnMouseEntered
-        menuProductsBtn.setBackground(new Color(0,191,168));
-    }//GEN-LAST:event_menuProductsBtnMouseEntered
-
-    private void menuProductsBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuProductsBtnMouseExited
-        menuProductsBtn.setBackground(new Color(0,177,157));
-    }//GEN-LAST:event_menuProductsBtnMouseExited
-
-    private void searchFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchFieldMousePressed
-        searchField.setText("");
-        searchField.setForeground(Color.black);
-    }//GEN-LAST:event_searchFieldMousePressed
-
-    private void searchBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchBtnMouseEntered
-        searchBtn.setBackground(new Color(0,116,134));
-    }//GEN-LAST:event_searchBtnMouseEntered
-
-    private void searchBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchBtnMouseExited
-        searchBtn.setBackground(new Color(0,83,94));
-    }//GEN-LAST:event_searchBtnMouseExited
-
-    private void searchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchBtnMouseClicked
-        String textoIngresado = searchField.getText();
-        System.out.println("Texto ingresado: " + textoIngresado);
-        searchField.setForeground(Color.gray);
-        searchField.setText("Buscar productos");
-    }//GEN-LAST:event_searchBtnMouseClicked
-
     private void newClientBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newClientBtnMouseEntered
         newClientBtn.setBackground(new Color(233,233,233));
     }//GEN-LAST:event_newClientBtnMouseEntered
@@ -482,20 +409,58 @@ public class SellPanel extends javax.swing.JPanel {
         cancelBtn.setBackground(new Color(133,146,173));
     }//GEN-LAST:event_cancelBtnMouseExited
 
+    private void newClientBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newClientBtnMouseClicked
+        controller.clearSelectedProducts();
+    }//GEN-LAST:event_newClientBtnMouseClicked
+
+    private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
+        int option = JOptionPane.showConfirmDialog(productsPanel, "¿Estás seguro que quieres vaciar la lista de articulos seleccionados?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            controller.clearSelectedProducts();   
+        }
+    }//GEN-LAST:event_cancelBtnMouseClicked
+
+    private void sellBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sellBtnMouseClicked
+        controller.sellSelectProducts();
+    }//GEN-LAST:event_sellBtnMouseClicked
+    
+    public void setSelectedList(DefaultListModel<SelectedProduct> selectedListModel){
+        this.jList1 = new JList<SelectedProduct>(selectedListModel);
+    }
+    
+    public JList<SelectedProduct> getjList1() {
+        return jList1;
+    }
+
+    private void replacePlaceholder(){
+        showClientTxt.setText("Cliente "+Aplicacion.tienda.getNoClients());
+        //menuImg.setIcon(new ImageIcon("src/resources/images/menu2.png"));
+        showPrice.setText("0.0");
+        displayNoProducts.setText("0 producto(s)");
+    }
+
+    public void updateFinalPrice(double finalPrice){
+        showPrice.setText(finalPrice+"");
+    }
+    public void updateNoProducts(int noProducts){
+        displayNoProducts.setText(noProducts+" producto(s)");
+    }
+    public void updateNoclients(int noClient){
+        showClientTxt.setText("Cliente "+noClient);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cancelBtn;
     private javax.swing.JLabel cancelBtnTxt;
     private javax.swing.JLabel displayNoProducts;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel menuProductsBtn;
+    private JList<SelectedProduct> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel newClientBtn;
     private javax.swing.JPanel productsBar;
+    public javax.swing.JPanel productsGrid;
     private javax.swing.JPanel productsPanel;
     private javax.swing.JPanel searchBar;
-    private javax.swing.JPanel searchBtn;
-    private javax.swing.JTextField searchField;
     private javax.swing.JPanel searchProducts;
     private javax.swing.JScrollPane selectedProductsList;
     private javax.swing.JPanel sellBtn;

@@ -1,5 +1,7 @@
 package main.java.vista;
 
+import main.java.modelo.Producto;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,12 +12,16 @@ package main.java.vista;
  * @author kumul
  */
 public class SelectedProduct extends javax.swing.JPanel {
-
+    private Producto producto;
+    private int amount;
     /**
      * Creates new form selectedProduct
      */
-    public SelectedProduct() {
+    public SelectedProduct(Producto producto, int amount) {
+        this.producto = producto;
+        this.amount = amount;
         initComponents();
+        removePlaceholder();
     }
 
     /**
@@ -158,6 +164,17 @@ public class SelectedProduct extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void removePlaceholder(){
+        this.productName.setText(this.producto.getNombre());
+        this.pricePerUnit.setText(this.producto.getPrecio()+"");
+        this.jLabel1.setText(this.amount+"");
+        this.finalPricePdts.setText(this.producto.getPrecio()*this.amount+"");
+    }
+
+    @Override
+    public String toString() {
+        return producto.getNombre()+" X "+amount+" = "+producto.getPrecio()*amount;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel deleteBtn;
